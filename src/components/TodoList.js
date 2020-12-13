@@ -8,13 +8,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
-import CreateIcon from '@material-ui/icons/Create';
-import DeleteIcon from '@material-ui/icons/Delete';
+
 
 //Step 8: We need to import a Higher Order Component
 //this connect is a function that invoked to bring back a higher order component
 //that connects this component to the redux store
 import { connect } from "react-redux";
+import ToDoRow from "./ToDoRow";
 
 const ToDoList = ({
   toDoList,
@@ -58,9 +58,6 @@ const ToDoList = ({
     setEditingToDo(updatedToDo);
   }
 
-  
-
-
   return (
     <>
       <table>
@@ -81,15 +78,7 @@ const ToDoList = ({
         </thead>
         <tbody>
           {toDoList.map(toDo => (
-            <tr key={toDo.id}>
-              <td>{toDo.id}</td>
-              <td>{toDo.title}</td>
-              <td>{toDo.todoState}</td>
-              <td>{toDo.url}</td>
-              <td>{toDo.createdAt}</td>
-              <td>{toDo.updatedAt}</td>
-              <td><CreateIcon color="secondary"/><DeleteIcon color="secondary"/></td>
-            </tr>         
+            <ToDoRow  key={toDo.id} toDo={toDo}/>     
           ))}
         </tbody>        
       </table>
