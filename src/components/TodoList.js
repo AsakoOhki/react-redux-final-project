@@ -72,16 +72,15 @@ const ToDoList = ({
         </thead>
         <tbody>
           {toDoList.map(toDo => (
-            
-              <tr key={toDo.id}>
-                <td>{toDo.id}</td>
-                <td>{toDo.title}</td>
-                <td>{toDo.todoState}</td>
-                <td>{toDo.url}</td>
-                <td>{toDo.createdAt}</td>
-                <td>{toDo.updatedAt}</td>
-                <td><CreateIcon color="secondary"/><DeleteIcon color="secondary"/></td>
-              </tr>         
+            <tr key={toDo.id}>
+              <td>{toDo.id}</td>
+              <td>{toDo.title}</td>
+              <td>{toDo.todoState}</td>
+              <td>{toDo.url}</td>
+              <td>{toDo.createdAt}</td>
+              <td>{toDo.updatedAt}</td>
+              <td><CreateIcon color="secondary"/><DeleteIcon color="secondary"/></td>
+            </tr>         
           ))}
         </tbody>        
       </table>
