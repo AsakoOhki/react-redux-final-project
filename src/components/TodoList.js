@@ -110,69 +110,63 @@ const ToDoList = ({
         <DialogTitle id="form-dialog-title">Add new Issue</DialogTitle>
         <DialogContent>
           <TextField onChange={handleChange} 
-            error={false}
+            error={id === ""}
             autoFocus
             name="id"
             margin="dense"
             label="id *"
             type="text"
             fullWidth
-            helperText="Required field"
+            helperText={id === "" ? "Required field" : undefined}
             value={id}
           />
           <TextField onChange={handleChange}
-            error={false}
+            error= {title === ""}
             autoFocus
             name="title"
             margin="dense"
             label="Title *"
             type="text"
             fullWidth
-            helperText="Required field"
+            helperText= {title === "" ? "Required field" : undefined}
             value={title}
           />
           <TextField onChange={handleChange}
-            error={false}
+            error= {todoState === ""}
             autoFocus
             name="todoState"
             margin="dense"
             label="State *"
             type="text"
             fullWidth
-            helperText="Required field"
+            helperText= {todoState === "" ? "Required field" : undefined}
             value={todoState}
           />
           <TextField onChange={handleChange}
-            error={false}
             autoFocus
             name="url"
             margin="dense"
             label="Url"
             type="text"
             fullWidth
-            helperText="Required field"
             value={url}
           />
           <TextField onChange={handleChange}
-            error={false}
             autoFocus
             name="createdat"
             margin="dense"
             label="Created At"
             type="text"
             fullWidth
-            helperText="Required field"
             value={createdAt}
           />
           <TextField onChange={handleChange}
-            error={false}
             autoFocus
             name="updatedat"
             margin="dense"
             label="Updated At"
             type="text"
             fullWidth
-            helperText="Required field"
             value={updatedAt}
           />
         </DialogContent>
