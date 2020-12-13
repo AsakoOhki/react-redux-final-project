@@ -15,14 +15,19 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 //that connects this component to the redux store
 import { connect } from "react-redux";
 
-
-
-
 const ToDoList = ({
   toDoList
 }) => {
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState("");
+  const [title, setTitle] = useState("");
+  const [todoState, setTodoState] = useState("");
+  const [url, setUrl] = useState("");
+  const [createdAt, setCreatedAt] = useState("");
+  const [updatedAt, setUpdatedAt] = useState("");
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -30,6 +35,24 @@ const ToDoList = ({
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    if (name === "id") {
+      setId(value)
+    } else if (name === "title") {
+      setTitle(value)
+    } else if (name === "todoState") {
+      setTodoState(value)
+    } else if (name === "url") {
+      setUrl(value)
+    } else if (name === "createdat") {
+      setCreatedAt(value)
+    } else if (name === "updatedat") {
+      setUpdatedAt(value)
+    }
+  }
 
   return (
     <>
@@ -63,54 +86,61 @@ const ToDoList = ({
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add new Issue</DialogTitle>
         <DialogContent>
-          <TextField
-            error
+          <TextField onChange={handleChange}
+            error={false}
             autoFocus
+            name="id"
             margin="dense"
             label="id *"
             type="text"
             fullWidth
             helperText="Required field"
+            value={id}
           />
-          <TextField
-            error
+          <TextField onChange={handleChange}
+            error={false}
             autoFocus
+            name="title"
             margin="dense"
             label="Title *"
             type="text"
             fullWidth
             helperText="Required field"
           />
-          <TextField
-            error
+          <TextField onChange={handleChange}
+            error={false}
             autoFocus
+            name="todoState"
             margin="dense"
             label="State *"
             type="text"
             fullWidth
             helperText="Required field"
           />
-          <TextField
-            error
+          <TextField onChange={handleChange}
+            error={false}
             autoFocus
+            name="url"
             margin="dense"
             label="Url"
             type="text"
             fullWidth
             helperText="Required field"
           />
-          <TextField
-            error
+          <TextField onChange={handleChange}
+            error={false}
             autoFocus
+            name="createdat"
             margin="dense"
             label="Created At"
             type="text"
             fullWidth
             helperText="Required field"
           />
-          <TextField
-            error
+          <TextField onChange={handleChange}
+            error={false}
             autoFocus
+            name="updatedat"
             margin="dense"
             label="Updated At"
             type="text"
@@ -131,91 +161,7 @@ const ToDoList = ({
   );
 }
 
-const ToDoListX = ({
-  toDoList,
-  removeToDo,
-  newToDo,
-  markToDo,
-  completeTaskFilter,
-  activeTaskFilter,
-  allTaskFilter
-}) => {
-  // const [toDoList, setToDoList] = useState([]);
-  const [filterVal, setFilterVal] = useState("SHOW_ALL");
 
-  const deleteToDo = id => {
-    // const afterFilter = toDoList.filter(item => item.id !== id);
-    // setToDoList(afterFilter);
-    removeToDo(id);
-  };
-
-  const addToDo = content => {
-    // newToDo.id = Math.random();
-    // newToDo.isDone = false;
-    // setToDoList([...toDoList, newToDo]);
-    newToDo(content);
-  };
-
-  const doneToDo = id => {
-    // const tempList = toDoList.map(item => {
-    //   item.id === id && (item.isDone = !item.isDone);
-    //   return item;
-    // });
-    // setToDoList(tempList);
-    markToDo(id);
-  };
-
-  const getVisibleToDos = (toDoList, filterVal) => {
-    switch (filterVal) {
-      case "SHOW_COMPLETED":
-        return toDoList.filter(item => item.isDone);
-      case "SHOW_ACTIVE":
-        return toDoList.filter(item => !item.isDone);
-      case "SHOW_ALL":
-        return toDoList;
-      default:
-        break;
-    }
-  };
-
-  const visibleList = getVisibleToDos(toDoList, filterVal);
-
-  //just for fun-------------------------------------------
-  //a message display for empty active/completed view
-  const getCurrentView = filterVal => {
-    switch (filterVal) {
-      case "SHOW_COMPLETED":
-        return "No completed task. Start doing something yo!!";
-      case "SHOW_ACTIVE":
-        return "No more Todo's!! Yatta!!!";
-      default:
-        return "Start doing something yo!!";
-    }
-  };
-
-  const displayMessage = getCurrentView(filterVal);
-
-  const filterFunc = action => {
-    setFilterVal(action);
-  };
-
-  return (
-    <>
-      <FilterToDos filterFunc={filterFunc} filterVal={filterVal} />
-      <ToDos
-        toDoList={visibleList}
-        doneToDo={doneToDo}
-        deleteToDo={deleteToDo}
-        filterVal={filterVal}
-        emptyText={displayMessage}
-      />
-      <AddForm addToDo={addToDo} />
-    </>
-  );
-};
-
-//Step 10: accessing state of the store to this component as a props
-//grab data from state and attach to the props
 const mapStateToProps = state => {
   return {
     toDoList: state.toDoList
