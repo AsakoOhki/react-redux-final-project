@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import ToDos from "./ToDos";
-import AddForm from "./AddForm";
-import FilterToDos from "./FilterToDos";
 import { deleteToDoAction } from "../actions/action";
 
 import Button from '@material-ui/core/Button';
@@ -72,34 +69,41 @@ const ToDoList = ({
     }
   }
 
+  
+
 
   return (
     <>
       <table>
-        <tr>
-          <th>id</th>
-          <th>Title</th>
-          <th>State</th>
-          <th>Url</th>
-          <th>Created At</th>
-          <th>Updated At</th>
-          <th>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-              <AddIcon/>
-            </Button>
-          </th>
-        </tr>
-        {toDoList.map(toDo => (
+        <thead>
           <tr>
-            <td>{toDo.id}</td>
-            <td>{toDo.content}</td>
-            <td>{toDo.state}</td>
-            <td>{toDo.url}</td>
-            <td>{toDo.createdAt}</td>
-            <td>{toDo.updatedAt}</td>
-            <td><CreateIcon color="secondary"/><DeleteIcon color="secondary"/></td>
+            <th>id</th>
+            <th>Title</th>
+            <th>State</th>
+            <th>Url</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>
+              <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+                <AddIcon/>
+              </Button>
+            </th>
           </tr>
-        ))}        
+        </thead>
+        <tbody>
+          {toDoList.map(toDo => (
+            
+              <tr key={toDo.id}>
+                <td>{toDo.id}</td>
+                <td>{toDo.content}</td>
+                <td>{toDo.state}</td>
+                <td>{toDo.url}</td>
+                <td>{toDo.createdAt}</td>
+                <td>{toDo.updatedAt}</td>
+                <td><CreateIcon color="secondary"/><DeleteIcon color="secondary"/></td>
+              </tr>         
+          ))}
+        </tbody>        
       </table>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
