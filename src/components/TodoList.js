@@ -34,6 +34,15 @@ const ToDoList = ({
 
   const handleClickOpen = () => {
     setOpen(true);
+    setEditingToDo({
+      id: "",
+      title: "",
+      isDone: "",
+      todoState: "",
+      url: "",
+      createdAt: "",
+      updatedAt: "",
+    });
   };
 
   const handleSave = () => {
