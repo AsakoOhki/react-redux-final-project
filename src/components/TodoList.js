@@ -3,6 +3,12 @@ import ToDos from "./ToDos";
 import AddForm from "./AddForm";
 import FilterToDos from "./FilterToDos";
 import { deleteToDoAction } from "../actions/action";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 //Step 8: We need to import a Higher Order Component
 //this connect is a function that invoked to bring back a higher order component
@@ -10,33 +16,118 @@ import { deleteToDoAction } from "../actions/action";
 import { connect } from "react-redux";
 
 
+
+
 const ToDoList = ({
   toDoList
 }) => {
+
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <table>
-      <tr>
-        <th>id</th>
-        <th>Title</th>
-        <th>State</th>
-        <th>Url</th>
-        <th>Created At</th>
-        <th>Updated At</th>
-        <th>+</th>
-      </tr>
-      {toDoList.map(toDo => (
+    <>
+      <table>
         <tr>
-          <td>{toDo.id}</td>
-          <td>{toDo.content}</td>
-          <td>{toDo.state}</td>
-          <td>{toDo.url}</td>
-          <td>{toDo.createdAt}</td>
-          <td>{toDo.updatedAt}</td>
-          <td>+</td>
+          <th>id</th>
+          <th>Title</th>
+          <th>State</th>
+          <th>Url</th>
+          <th>Created At</th>
+          <th>Updated At</th>
+          <th>
+            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+              +
+            </Button>
+          </th>
         </tr>
-      ))}
-      
-    </table>
+        {toDoList.map(toDo => (
+          <tr>
+            <td>{toDo.id}</td>
+            <td>{toDo.content}</td>
+            <td>{toDo.state}</td>
+            <td>{toDo.url}</td>
+            <td>{toDo.createdAt}</td>
+            <td>{toDo.updatedAt}</td>
+            <td>+</td>
+          </tr>
+        ))}
+        
+      </table>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Add new Issue</DialogTitle>
+        <DialogContent>
+          <TextField
+            error
+            autoFocus
+            margin="dense"
+            label="id *"
+            type="text"
+            fullWidth
+            helperText="Required field"
+          />
+          <TextField
+            error
+            autoFocus
+            margin="dense"
+            label="Title *"
+            type="text"
+            fullWidth
+            helperText="Required field"
+          />
+          <TextField
+            error
+            autoFocus
+            margin="dense"
+            label="State *"
+            type="text"
+            fullWidth
+            helperText="Required field"
+          />
+          <TextField
+            error
+            autoFocus
+            margin="dense"
+            label="Url"
+            type="text"
+            fullWidth
+            helperText="Required field"
+          />
+          <TextField
+            error
+            autoFocus
+            margin="dense"
+            label="Created At"
+            type="text"
+            fullWidth
+            helperText="Required field"
+          />
+          <TextField
+            error
+            autoFocus
+            margin="dense"
+            label="Updated At"
+            type="text"
+            fullWidth
+            helperText="Required field"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Save
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
 
