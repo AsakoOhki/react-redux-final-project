@@ -3,12 +3,16 @@ import ToDos from "./ToDos";
 import AddForm from "./AddForm";
 import FilterToDos from "./FilterToDos";
 import { deleteToDoAction } from "../actions/action";
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import AddIcon from '@material-ui/icons/Add';
+import CreateIcon from '@material-ui/icons/Create';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 //Step 8: We need to import a Higher Order Component
 //this connect is a function that invoked to bring back a higher order component
@@ -68,6 +72,7 @@ const ToDoList = ({
     }
   }
 
+
   return (
     <>
       <table>
@@ -80,7 +85,7 @@ const ToDoList = ({
           <th>Updated At</th>
           <th>
             <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-              +
+              <AddIcon/>
             </Button>
           </th>
         </tr>
@@ -92,15 +97,15 @@ const ToDoList = ({
             <td>{toDo.url}</td>
             <td>{toDo.createdAt}</td>
             <td>{toDo.updatedAt}</td>
-            <td>+</td>
+            <td><CreateIcon color="secondary"/><DeleteIcon color="secondary"/></td>
           </tr>
-        ))}
-        
+        ))}        
       </table>
+
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add new Issue</DialogTitle>
         <DialogContent>
-          <TextField onChange={handleChange}
+          <TextField onChange={handleChange} 
             error={false}
             autoFocus
             name="id"
@@ -168,7 +173,7 @@ const ToDoList = ({
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSave} color="primary">
+          <Button onClick={handleSave} color="primary"　disabled={id === "" || title === "" || todoState === ""}>
             Save
           </Button>
           <Button onClick={handleClose} color="primary">
