@@ -32,7 +32,7 @@ const initState = {
           toDoList: newToDos
         };
       case "NEW_TO_DO":
-        action.payload.id = Math.random();
+        
         action.payload.isDone = false;
         return {
           ...state,

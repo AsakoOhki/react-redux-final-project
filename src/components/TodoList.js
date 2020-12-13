@@ -16,7 +16,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { connect } from "react-redux";
 
 const ToDoList = ({
-  toDoList
+  toDoList,
+  newToDo
 }) => {
 
   const [open, setOpen] = useState(false);
@@ -30,6 +31,19 @@ const ToDoList = ({
 
   const handleClickOpen = () => {
     setOpen(true);
+  };
+
+  const handleSave = () => {
+    newToDo({
+      id: id, 
+      content: title, 
+      isDone: false, 
+      state: todoState, 
+      url: url,
+      createdAt: createdAt,
+      updatedAt: updatedAt
+    });
+    setOpen(false);
   };
 
   const handleClose = () => {
@@ -106,6 +120,7 @@ const ToDoList = ({
             type="text"
             fullWidth
             helperText="Required field"
+            value={title}
           />
           <TextField onChange={handleChange}
             error={false}
@@ -116,6 +131,7 @@ const ToDoList = ({
             type="text"
             fullWidth
             helperText="Required field"
+            value={todoState}
           />
           <TextField onChange={handleChange}
             error={false}
@@ -126,6 +142,7 @@ const ToDoList = ({
             type="text"
             fullWidth
             helperText="Required field"
+            value={url}
           />
           <TextField onChange={handleChange}
             error={false}
@@ -136,6 +153,7 @@ const ToDoList = ({
             type="text"
             fullWidth
             helperText="Required field"
+            value={createdAt}
           />
           <TextField onChange={handleChange}
             error={false}
@@ -146,10 +164,11 @@ const ToDoList = ({
             type="text"
             fullWidth
             helperText="Required field"
+            value={updatedAt}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleSave} color="primary">
             Save
           </Button>
           <Button onClick={handleClose} color="primary">
