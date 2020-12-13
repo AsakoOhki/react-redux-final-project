@@ -2,20 +2,21 @@
 const initState = {
     toDoList: [
       { id: 1, 
-        content: "Bake a cake", 
+        title: "Bake a cake", 
         isDone: false, 
-        state: "open", 
+        todoState: "open", 
         url: "https://api.github.com/repos/angular/angular/issues/40098",
         createdAt: "2020-12-12T18:23:55Z",
         updatedAt: "2020-12-12T18:24:09Z"
       },
       { id: 2, 
-        content: "Bake a cake", 
+        title: "Bake a cake", 
         isDone: false, 
-        state: "open", 
+        todoState: "open", 
         url: "https://api.github.com/repos/angular/angular/issues/40098",
         createdAt: "2020-12-12T18:23:55Z",
-        updatedAt: "2020-12-12T18:24:09Z"}
+        updatedAt: "2020-12-12T18:24:09Z"
+      }
     ]
   };
   

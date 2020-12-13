@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { deleteToDoAction } from "../actions/action";
+import AddForm from './AddForm';
 
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -22,28 +22,22 @@ const ToDoList = ({
 }) => {
 
   const [open, setOpen] = useState(false);
-  const [id, setId] = useState("");
-  const [title, setTitle] = useState("");
-  const [todoState, setTodoState] = useState("");
-  const [url, setUrl] = useState("");
-  const [createdAt, setCreatedAt] = useState("");
-  const [updatedAt, setUpdatedAt] = useState("");
-
+  const [editingToDo, setEditingToDo] = useState({
+    id: "",
+    title: "",
+    isDone: "",
+    todoState: "",
+    url: "",
+    createdAt: "",
+    updatedAt: "",
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleSave = () => {
-    newToDo({
-      id: id, 
-      content: title, 
-      isDone: false, 
-      state: todoState, 
-      url: url,
-      createdAt: createdAt,
-      updatedAt: updatedAt
-    });
+    newToDo(editingToDo);
     setOpen(false);
   };
 
@@ -51,22 +45,8 @@ const ToDoList = ({
     setOpen(false);
   };
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    if (name === "id") {
-      setId(value)
-    } else if (name === "title") {
-      setTitle(value)
-    } else if (name === "todoState") {
-      setTodoState(value)
-    } else if (name === "url") {
-      setUrl(value)
-    } else if (name === "createdat") {
-      setCreatedAt(value)
-    } else if (name === "updatedat") {
-      setUpdatedAt(value)
-    }
+  const handleChange = (updatedToDo) => {
+    setEditingToDo(updatedToDo);
   }
 
   
@@ -95,8 +75,8 @@ const ToDoList = ({
             
               <tr key={toDo.id}>
                 <td>{toDo.id}</td>
-                <td>{toDo.content}</td>
-                <td>{toDo.state}</td>
+                <td>{toDo.title}</td>
+                <td>{toDo.todoState}</td>
                 <td>{toDo.url}</td>
                 <td>{toDo.createdAt}</td>
                 <td>{toDo.updatedAt}</td>
@@ -109,69 +89,14 @@ const ToDoList = ({
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add new Issue</DialogTitle>
         <DialogContent>
-          <TextField onChange={handleChange} 
-            error={id === ""}
-            autoFocus
-            name="id"
-            margin="dense"
-            label="id *"
-            type="text"
-            fullWidth
-            helperText={id === "" ? "Required field" : undefined}
-            value={id}
-          />
-          <TextField onChange={handleChange}
-            error= {title === ""}
-            autoFocus
-            name="title"
-            margin="dense"
-            label="Title *"
-            type="text"
-            fullWidth
-            helperText= {title === "" ? "Required field" : undefined}
-            value={title}
-          />
-          <TextField onChange={handleChange}
-            error= {todoState === ""}
-            autoFocus
-            name="todoState"
-            margin="dense"
-            label="State *"
-            type="text"
-            fullWidth
-            helperText= {todoState === "" ? "Required field" : undefined}
-            value={todoState}
-          />
-          <TextField onChange={handleChange}
-            autoFocus
-            name="url"
-            margin="dense"
-            label="Url"
-            type="text"
-            fullWidth
-            value={url}
-          />
-          <TextField onChange={handleChange}
-            autoFocus
-            name="createdat"
-            margin="dense"
-            label="Created At"
-            type="text"
-            fullWidth
-            value={createdAt}
-          />
-          <TextField onChange={handleChange}
-            autoFocus
-            name="updatedat"
-            margin="dense"
-            label="Updated At"
-            type="text"
-            fullWidth
-            value={updatedAt}
-          />
+          <AddForm toDo={editingToDo} onChange={handleChange} />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSave} color="primary"　disabled={id === "" || title === "" || todoState === ""}>
+          <Button
+            onClick={handleSave}
+            color="primary"
+            disabled={editingToDo.id === "" || editingToDo.title === "" || editingToDo.todoState === ""}
+          >
             Save
           </Button>
           <Button onClick={handleClose} color="primary">
