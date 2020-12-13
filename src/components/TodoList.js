@@ -9,7 +9,33 @@ import { deleteToDoAction } from "../actions/action";
 //that connects this component to the redux store
 import { connect } from "react-redux";
 
-const ToDoList = ({
+
+const ToDoList = () => {
+  return (
+    <table>
+      <tr>
+        <th>id</th>
+        <th>Title</th>
+        <th>State</th>
+        <th>Url</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>+</th>
+      </tr>
+      <tr>
+        <td>id</td>
+        <td>Title</td>
+        <td>State</td>
+        <td>Url</td>
+        <td>Created At</td>
+        <td>Updated At</td>
+        <td>+</td>
+      </tr>
+    </table>
+  );
+}
+
+const ToDoListX = ({
   toDoList,
   removeToDo,
   newToDo,
