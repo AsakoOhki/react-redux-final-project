@@ -1,8 +1,21 @@
 //step 6: create an initial state
 const initState = {
     toDoList: [
-      { id: 1, content: "Bake a cake", isDone: false },
-      { id: 2, content: "Buy Sweet Potato", isDone: false }
+      { id: 1, 
+        content: "Bake a cake", 
+        isDone: false, 
+        state: "open", 
+        url: "https://api.github.com/repos/angular/angular/issues/40098",
+        createdAt: "2020-12-12T18:23:55Z",
+        updatedAt: "2020-12-12T18:24:09Z"
+      },
+      { id: 2, 
+        content: "Bake a cake", 
+        isDone: false, 
+        state: "open", 
+        url: "https://api.github.com/repos/angular/angular/issues/40098",
+        createdAt: "2020-12-12T18:23:55Z",
+        updatedAt: "2020-12-12T18:24:09Z"}
     ]
   };
   

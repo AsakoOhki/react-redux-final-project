@@ -10,7 +10,9 @@ import { deleteToDoAction } from "../actions/action";
 import { connect } from "react-redux";
 
 
-const ToDoList = () => {
+const ToDoList = ({
+  toDoList
+}) => {
   return (
     <table>
       <tr>
@@ -22,15 +24,18 @@ const ToDoList = () => {
         <th>Updated At</th>
         <th>+</th>
       </tr>
-      <tr>
-        <td>id</td>
-        <td>Title</td>
-        <td>State</td>
-        <td>Url</td>
-        <td>Created At</td>
-        <td>Updated At</td>
-        <td>+</td>
-      </tr>
+      {toDoList.map(toDo => (
+        <tr>
+          <td>{toDo.id}</td>
+          <td>{toDo.content}</td>
+          <td>{toDo.state}</td>
+          <td>{toDo.url}</td>
+          <td>{toDo.createdAt}</td>
+          <td>{toDo.updatedAt}</td>
+          <td>+</td>
+        </tr>
+      ))}
+      
     </table>
   );
 }
