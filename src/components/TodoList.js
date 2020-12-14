@@ -19,11 +19,13 @@ import ToDoRow from "./ToDoRow";
 const ToDoList = ({
   toDoList,
   newToDo,
-  updateToDo
+  updateToDo,
+  removeToDo
 }) => {
 
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [editingToDo, setEditingToDo] = useState({
     id: "",
     title: "",
@@ -82,6 +84,24 @@ const ToDoList = ({
     setOpenEdit(false);
   }
 
+  const onDeleteClick = ({ toDo }) => {
+    setOpenDelete(true);
+    setEditingToDo({
+      id: toDo.id,
+      title: toDo.title,
+      todoState: toDo.todoState,
+      url: toDo.url
+    });
+  }
+
+  const handleDeleteClose = () => {
+    setOpenDelete(false);
+  }
+
+  const handleDelete = () => {
+    removeToDo(editingToDo.id);
+    setOpenDelete(false);
+  }
 
 
   return (
@@ -104,7 +124,7 @@ const ToDoList = ({
         </thead>
         <tbody>
           {toDoList.map(toDo => (
-            <ToDoRow  key={toDo.id} toDo={toDo} onEditClick={onEditClick}/>     
+            <ToDoRow  key={toDo.id} toDo={toDo} onEditClick={onEditClick} onDeleteClick={onDeleteClick}/>     
           ))}
         </tbody>        
       </table>
@@ -141,6 +161,26 @@ const ToDoList = ({
             Save
           </Button>
           <Button onClick={handleEditClose} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={openDelete} onClose={handleDeleteClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Are you sure?</DialogTitle>
+        <DialogContent>
+          <p>id:{editingToDo.id}</p> 
+          <p>Title:{editingToDo.title}</p>
+          <p>State:{editingToDo.todoState}</p>
+          <p>Url:{editingToDo.url}</p>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleDelete}
+            color="primary"
+          >
+            Delete
+          </Button>
+          <Button onClick={handleDeleteClose} color="primary">
             Cancel
           </Button>
         </DialogActions>
