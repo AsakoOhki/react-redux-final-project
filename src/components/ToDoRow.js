@@ -2,7 +2,16 @@ import React from 'react';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const ToDoRow = ({ toDo }) => {
+const ToDoRow = ({ toDo, onEditClick}) => {
+
+	const handleEdit = ()=> {
+
+		onEditClick({
+			toDo
+		})
+
+	}
+
 	return (
 		<tr>
 			<td>{toDo.id}</td>
@@ -11,7 +20,7 @@ const ToDoRow = ({ toDo }) => {
 			<td>{toDo.url}</td>
 			<td>{toDo.createdAt}</td>
 			<td>{toDo.updatedAt}</td>
-			<td><CreateIcon color="secondary" /><DeleteIcon color="secondary"/></td>
+			<td><CreateIcon color="secondary" onClick={handleEdit}/><DeleteIcon color="secondary"/></td>
 		</tr>    
 	)
 }

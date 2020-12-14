@@ -22,6 +22,7 @@ const ToDoList = ({
 }) => {
 
   const [open, setOpen] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const [editingToDo, setEditingToDo] = useState({
     id: "",
     title: "",
@@ -58,6 +59,29 @@ const ToDoList = ({
     setEditingToDo(updatedToDo);
   }
 
+  const onEditClick = ({ toDo }) => {
+    setOpenEdit(true);
+    setEditingToDo({
+      id: toDo.id,
+      title: toDo.title,
+      isDone: toDo.isDone,
+      todoState: toDo.todoState,
+      url: toDo.url,
+      createdAt: toDo.createdAt,
+      updatedAt: toDo.updatedAt,
+    });
+  }
+
+  const handleEditClose = () => {
+    setOpenEdit(false);
+  };
+
+  const handleEdit = () => {
+    
+  }
+
+
+
   return (
     <>
       <table>
@@ -78,7 +102,7 @@ const ToDoList = ({
         </thead>
         <tbody>
           {toDoList.map(toDo => (
-            <ToDoRow  key={toDo.id} toDo={toDo}/>     
+            <ToDoRow  key={toDo.id} toDo={toDo} onEditClick={onEditClick}/>     
           ))}
         </tbody>        
       </table>
@@ -97,6 +121,24 @@ const ToDoList = ({
             Save
           </Button>
           <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={openEdit} onClose={handleEditClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Issue id: {editingToDo.id}</DialogTitle>
+        <DialogContent>
+          <AddForm toDo={editingToDo} onChange={handleChange} />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleEdit}
+            color="primary"
+            disabled={editingToDo.id === "" || editingToDo.title === "" || editingToDo.todoState === ""}
+          >
+            Save
+          </Button>
+          <Button onClick={handleEditClose} color="primary">
             Cancel
           </Button>
         </DialogActions>
