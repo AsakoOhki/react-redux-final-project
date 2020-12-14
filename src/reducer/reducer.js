@@ -39,6 +39,17 @@ const initState = {
           ...state,
           toDoList: [...state.toDoList, action.payload]
         };
+      case "UPDATE_TO_DO":
+        const updateToDo = state.toDoList.map(item => {
+          if(item.id === action.payload.id) {
+            return action.payload
+          }
+          return item;
+        });
+        return {
+          ...state,
+          toDoList: updateToDo
+        };
       case "DONE_TO_DO":
         const tempList = state.toDoList.map(item => {
           item.id === action.payload && (item.isDone = !item.isDone);

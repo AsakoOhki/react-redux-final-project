@@ -18,7 +18,8 @@ import ToDoRow from "./ToDoRow";
 
 const ToDoList = ({
   toDoList,
-  newToDo
+  newToDo,
+  updateToDo
 }) => {
 
   const [open, setOpen] = useState(false);
@@ -77,7 +78,8 @@ const ToDoList = ({
   };
 
   const handleEdit = () => {
-    
+    updateToDo(editingToDo);
+    setOpenEdit(false);
   }
 
 
@@ -166,6 +168,9 @@ const mapDispatchToProps = dispatch => {
     },
     newToDo: content => {
       dispatch({ type: "NEW_TO_DO", payload: content });
+    },
+    updateToDo: content => {
+      dispatch({ type: "UPDATE_TO_DO", payload: content });
     },
     markToDo: id => {
       dispatch({ type: "DONE_TO_DO", payload: id });
