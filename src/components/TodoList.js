@@ -8,6 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
+import TextField from '@material-ui/core/TextField';
 
 
 //Step 8: We need to import a Higher Order Component
@@ -20,7 +21,9 @@ const ToDoList = ({
   toDoList,
   newToDo,
   updateToDo,
-  removeToDo
+  removeToDo,
+  fliter,
+  fliteredList
 }) => {
 
   const [open, setOpen] = useState(false);
@@ -103,9 +106,19 @@ const ToDoList = ({
     setOpenDelete(false);
   }
 
+  const handleFilter = (event) => {
+    const value = event.target.value;
+    fliter(value);
+  }
+
+  
+
 
   return (
     <>
+      <form noValidate autoComplete="off">
+        <TextField id="standard-basic" label="Fliter Issues" onChange={handleFilter}/>
+      </form>
       <table>
         <thead>
           <tr>
@@ -123,7 +136,7 @@ const ToDoList = ({
           </tr>
         </thead>
         <tbody>
-          {toDoList.map(toDo => (
+          {fliteredList.map(toDo => (
             <ToDoRow  key={toDo.id} toDo={toDo} onEditClick={onEditClick} onDeleteClick={onDeleteClick}/>     
           ))}
         </tbody>        
@@ -192,7 +205,13 @@ const ToDoList = ({
 
 const mapStateToProps = state => {
   return {
-    toDoList: state.toDoList
+    toDoList: state.toDoList,
+    fliteredList: state.toDoList.filter((item)=> {
+      if(state.fliterText === "") {
+        return true
+      } 
+      return item.id === state.fliterText || item.title.includes(state.fliterText);
+    })
   };
 };
 
@@ -230,6 +249,12 @@ const mapDispatchToProps = dispatch => {
     allTaskFilter: text => {
       dispatch({
         type: "TASK_ALL_FILTER",
+        payload: text
+      });
+    },
+    fliter: text => {
+      dispatch({
+        type: "FILTER",
         payload: text
       });
     }
