@@ -45,6 +45,7 @@ const AddForm = ({
         value={toDo.id}
       />
       <TextField onChange={handleChange}
+        InputProps={{classes}}
         error= {toDo.title === ""}
         name="title"
         margin="dense"
@@ -55,6 +56,7 @@ const AddForm = ({
         value={toDo.title}
       />
       <TextField onChange={handleChange}
+        InputProps={{classes}}
         error= {toDo.todoState === ""}
         name="todoState"
         margin="dense"
@@ -65,6 +67,7 @@ const AddForm = ({
         value={toDo.todoState}
       />
       <TextField onChange={handleChange}
+        InputProps={{classes}}
         name="url"
         margin="dense"
         label="Url"
@@ -73,6 +76,7 @@ const AddForm = ({
         value={toDo.url}
       />
       <TextField onChange={handleChange}
+        InputProps={{classes}}
         name="createdat"
         margin="dense"
         label="Created At"
@@ -81,6 +85,7 @@ const AddForm = ({
         value={toDo.createdAt}
       />
       <TextField onChange={handleChange}
+        InputProps={{classes}}
         name="updatedat"
         margin="dense"
         label="Updated At"

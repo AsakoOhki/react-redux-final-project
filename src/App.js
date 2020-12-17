@@ -18,7 +18,7 @@ function App() {
       >
         <Box display="flex"   style={{ justifyContent: "space-between", backgroundColor: 'blue', color:"white", width: '100%', padding: "10px", marginBottom: "20px"}}>
           <h5>Angular 9 MatTable CRUD Example</h5>
-          <h5>Reload data: <RefreshIcon /></h5>
+          <h5>Reload data: <RefreshIcon style={{ fontSize: "25px"}}/></h5>
         </Box>      
         <ToDoList />
      </Box>
