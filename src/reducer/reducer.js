@@ -2,16 +2,14 @@
 const initState = {
     toDoList: [
       { id: "1", 
-        title: "Bake a cake", 
-        isDone: false, 
+        title: "Casing issue in HttpClient", 
         todoState: "open", 
         url: "https://api.github.com/repos/angular/angular/issues/40098",
         createdAt: "2020-12-12T18:23:55Z",
         updatedAt: "2020-12-12T18:24:09Z"
       },
       { id: "2", 
-        title: "Go for a walk", 
-        isDone: false, 
+        title: "perf(core): make DI decorators tree-shakable when used in `useFactory` deps config", 
         todoState: "open", 
         url: "https://api.github.com/repos/angular/angular/issues/40098",
         createdAt: "2020-12-12T18:23:55Z",
@@ -21,8 +19,6 @@ const initState = {
     fliterText: ""
 };
 
-  
-  //step 5: initialize a reducer function with two params
   const reducer = (state = initState, action) => {
     switch (action.type) {
       case "DELETE_TO_DO":
@@ -51,15 +47,6 @@ const initState = {
         return {
           ...state,
           toDoList: updateToDo
-        };
-      case "DONE_TO_DO":
-        const tempList = state.toDoList.map(item => {
-          item.id === action.payload && (item.isDone = !item.isDone);
-          return item;
-        });
-        return {
-          ...state,
-          toDoList: tempList
         };
       case "FILTER":
         return {

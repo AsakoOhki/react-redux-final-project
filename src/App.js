@@ -1,14 +1,29 @@
 import React from "react";
+import "./App.css";
 import ToDoList from "./components/TodoList";
-import "./styles.css";
 import { connect } from "react-redux";
+import RefreshIcon from '@material-ui/icons/Refresh';
+import Box from '@material-ui/core/Box';
 
-function App({ toDoList }) {
+
+function App() {
   return (
-    <div className="container">
-      <h1 className="center blue-text">Angular 9 MatTable CRUD Example</h1>
-      <ToDoList />
-    </div>
+    <>
+      <Box
+        boxShadow={3}
+        bgcolor="background.paper"
+        m={1}
+        p={1}
+        style={{ width: '100%', height: '90%'}}
+      >
+        <Box display="flex"   style={{ justifyContent: "space-between", backgroundColor: 'blue', color:"white", width: '100%', padding: "10px", marginBottom: "20px"}}>
+          <h5>Angular 9 MatTable CRUD Example</h5>
+          <h5>Reload data: <RefreshIcon /></h5>
+        </Box>      
+        <ToDoList />
+     </Box>
+    
+    </>
   );
 }
 

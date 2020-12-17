@@ -1,24 +1,31 @@
 import React, { useState } from "react";
 import { deleteToDoAction } from "../actions/action";
+import { connect } from "react-redux";
 import AddForm from './AddForm';
+import ToDoRow from "./ToDoRow";
 
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
-import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles'
 
-
-//Step 8: We need to import a Higher Order Component
-//this connect is a function that invoked to bring back a higher order component
-//that connects this component to the redux store
-import { connect } from "react-redux";
-import ToDoRow from "./ToDoRow";
+const useStyles = makeStyles({
+  underline: {
+    "&&&:before": {
+      borderBottom: "none"
+    },
+    "&&:after": {
+      borderBottom: "none"
+    },
+    
+  }
+});
 
 const ToDoList = ({
-  toDoList,
   newToDo,
   updateToDo,
   removeToDo,
@@ -26,6 +33,7 @@ const ToDoList = ({
   fliteredList
 }) => {
 
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -70,7 +78,6 @@ const ToDoList = ({
     setEditingToDo({
       id: toDo.id,
       title: toDo.title,
-      isDone: toDo.isDone,
       todoState: toDo.todoState,
       url: toDo.url,
       createdAt: toDo.createdAt,
@@ -111,13 +118,10 @@ const ToDoList = ({
     fliter(value);
   }
 
-  
-
-
   return (
     <>
       <form noValidate autoComplete="off">
-        <TextField id="standard-basic" label="Fliter Issues" onChange={handleFilter}/>
+        <TextField id="standard-basic"　label="Fliter Issues" fullWidth onChange={handleFilter} InputProps={{classes}}  autoFocus/>
       </form>
       <table>
         <thead>
@@ -129,8 +133,8 @@ const ToDoList = ({
             <th>Created At</th>
             <th>Updated At</th>
             <th>
-              <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                <AddIcon/>
+              <Button onClick={handleClickOpen}>
+                <AddIcon />
               </Button>
             </th>
           </tr>
@@ -230,27 +234,6 @@ const mapDispatchToProps = dispatch => {
     },
     updateToDo: content => {
       dispatch({ type: "UPDATE_TO_DO", payload: content });
-    },
-    markToDo: id => {
-      dispatch({ type: "DONE_TO_DO", payload: id });
-    },
-    completeTaskFilter: text => {
-      dispatch({
-        type: "TASK_COMPLETED_FILTER",
-        payload: text
-      });
-    },
-    activeTaskFilter: text => {
-      dispatch({
-        type: "TASK_ACTIVE_FILTER",
-        payload: text
-      });
-    },
-    allTaskFilter: text => {
-      dispatch({
-        type: "TASK_ALL_FILTER",
-        payload: text
-      });
     },
     fliter: text => {
       dispatch({

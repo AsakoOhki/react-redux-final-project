@@ -1,10 +1,24 @@
 import React from "react";
 import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  underline: {
+    "&&&:before": {
+      borderBottom: "none"
+    },
+    "&&:after": {
+      borderBottom: "none"
+    },
+    color: "secondary"
+  }
+});
 
 const AddForm = ({
   toDo,
   onChange,
 }) => {
+  const classes = useStyles();
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -18,8 +32,10 @@ const AddForm = ({
   return (
     <div>
       <TextField onChange={handleChange} 
+        InputProps={{classes}} 
         error={toDo.id === ""}
         autoFocus
+        color="secondary"
         name="id"
         margin="dense"
         label="id *"
